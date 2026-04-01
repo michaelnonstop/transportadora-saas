@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card subscription-card">
+  <h2>Assinatura</h2>
+  <p><strong>Plano:</strong> {{ plan }}</p>
+  <p><strong>Status atual:</strong> {{ billing|capitalize }}</p>
+  <p><strong>Vencimento:</strong> {{ due_date }}</p>
+  {% if billing == 'bloqueado' %}
+    <div class="banner danger">Seu acesso foi bloqueado por falta de pagamento.</div>
+  {% elif billing == 'atrasado' %}
+    <div class="banner warning">Seu pagamento está atrasado. Renove antes do bloqueio total.</div>
+  {% else %}
+    <div class="banner success">Assinatura em dia.</div>
+  {% endif %}
+  <form method="post" action="/assinatura/renovar">
+    <button type="submit">Simular pagamento e renovar 30 dias</button>
+  </form>
+  <p class="small">Nesta versão demo, o botão acima simula a confirmação do pagamento e libera o sistema automaticamente.</p>
+</div>
+{% endblock %}

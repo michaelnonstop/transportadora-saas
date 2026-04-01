@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="page-head"><div><h2>Colaboradores</h2><p>Equipe, função e veículo.</p></div></header>
+<section class="grid-two">
+  <div class="card">
+    <h3>Novo colaborador</h3>
+    <form method="post" class="grid-form">
+      <input name="name" placeholder="Nome" required />
+      <input name="role" placeholder="Função" required />
+      <input name="phone" placeholder="Telefone" />
+      <input name="vehicle" placeholder="Veículo" />
+      <button type="submit">Salvar colaborador</button>
+    </form>
+  </div>
+  <div class="card">
+    <h3>Lista da equipe</h3>
+    <table>
+      <thead><tr><th>Nome</th><th>Função</th><th>Veículo</th></tr></thead>
+      <tbody>
+        {% for item in employees %}
+        <tr><td>{{ item['name'] }}</td><td>{{ item['role'] }}</td><td>{{ item['vehicle'] }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

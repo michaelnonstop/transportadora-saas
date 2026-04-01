@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="page-head">
+  <div>
+    <h2>Dashboard</h2>
+    <p>Visão geral da operação da transportadora.</p>
+  </div>
+</header>
+<section class="cards">
+  <div class="card stat"><span>Clientes</span><strong>{{ total_clients }}</strong></div>
+  <div class="card stat"><span>Colaboradores</span><strong>{{ total_employees }}</strong></div>
+  <div class="card stat"><span>Serviços</span><strong>{{ total_services }}</strong></div>
+  <div class="card stat"><span>Receita</span><strong>R$ {{ '%.2f'|format(revenue) }}</strong></div>
+  <div class="card stat"><span>Despesas</span><strong>R$ {{ '%.2f'|format(expenses) }}</strong></div>
+  <div class="card stat"><span>Lucro</span><strong>R$ {{ '%.2f'|format(profit) }}</strong></div>
+</section>
+<section class="card">
+  <div class="table-header">
+    <h3>Últimos serviços</h3>
+    <a class="link-btn" href="/relatorios/servicos.pdf" target="_blank">Abrir PDF</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Cliente</th>
+        <th>Origem</th>
+        <th>Destino</th>
+        <th>Status</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in recent_services %}
+      <tr>
+        <td>{{ item['service_code'] }}</td>
+        <td>{{ item['client_name'] }}</td>
+        <td>{{ item['origin'] }}</td>
+        <td>{{ item['destination'] }}</td>
+        <td>{{ item['status'] }}</td>
+        <td>R$ {{ '%.2f'|format(item['amount']) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

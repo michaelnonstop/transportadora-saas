@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transportadora Control Pro</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  {% if current_user %}
+  <aside class="sidebar">
+    <div>
+      <h1>Control Pro</h1>
+      <p class="subtitle">{{ current_user['company_name'] }}</p>
+    </div>
+    <nav>
+      <a href="/dashboard" class="{% if page == 'dashboard' %}active{% endif %}">Dashboard</a>
+      <a href="/clientes" class="{% if page == 'clientes' %}active{% endif %}">Clientes</a>
+      <a href="/colaboradores" class="{% if page == 'colaboradores' %}active{% endif %}">Colaboradores</a>
+      <a href="/servicos" class="{% if page == 'servicos' %}active{% endif %}">Serviços</a>
+      <a href="/financeiro" class="{% if page == 'financeiro' %}active{% endif %}">Financeiro</a>
+      <a href="/assinatura" class="{% if page == 'assinatura' %}active{% endif %}">Assinatura</a>
+      <a href="/relatorios/servicos.pdf" target="_blank">PDF</a>
+      <a href="/logout">Sair</a>
+    </nav>
+  </aside>
+  {% endif %}
+  <main class="main {% if not current_user %}full{% endif %}">
+    {% if current_user and billing == 'atrasado' %}
+      <div class="banner warning">Sua assinatura está vencida, mas em período de carência. Regularize para evitar bloqueio.</div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
